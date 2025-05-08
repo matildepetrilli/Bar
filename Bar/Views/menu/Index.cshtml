@@ -1,0 +1,39 @@
+﻿@model List<Categoria>
+
+<h1>Menù del Bar</h1>
+
+@if (TempData["Messaggio"] != null)
+{
+    <div class="alert alert-success">@TempData["Messaggio"]</div>
+}
+
+@foreach (var categoria in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h2>@categoria.Nome</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var prodotto in categoria.Prodotti)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5>@prodotto.Nome</h5>
+                                <p>@prodotto.Descrizione</p>
+                                <p class="fw-bold">@prodotto.Prezzo.ToString("C")</p>
+                                <form method="post" asp-action="AggiungiAlCarrello">
+                                    <input type="hidden" name="id" value="@prodotto.Id" />
+                                    <button type="submit" class="btn btn-sm btn-primary">Aggiungi</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<a asp-action="Carrello" class="btn btn-success">Vedi Carrello</a>

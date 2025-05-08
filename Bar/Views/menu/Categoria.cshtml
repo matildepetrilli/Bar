@@ -1,0 +1,49 @@
+﻿@model List<Bar.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Menù del Bar";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+
+    @if (TempData["Messaggio"] != null)
+    {
+        <div class="alert alert-success">@TempData["Messaggio"]</div>
+    }
+
+    @foreach (var categoria in Model)
+    {
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2>@categoria.Nome</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach (var prodotto in categoria.Prodotti)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">@prodotto.Nome</h5>
+                                    <p class="card-text">@prodotto.Descrizione</p>
+                                    <p class="text-success fw-bold">@prodotto.Prezzo.ToString("C")</p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <form method="post" asp-action="AggiungiAlCarrello">
+                                        <input type="hidden" name="id" value="@prodotto.Id" />
+                                        <button type="submit" class="btn btn-primary">Aggiungi al carrello</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="text-center">
+        <a asp-action="Carrello" class="btn btn-success btn-lg">Vedi Carrello</a>
+    </div>
+</div>
