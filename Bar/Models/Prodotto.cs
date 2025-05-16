@@ -5,7 +5,7 @@ namespace Bar.Models
 {
     public class Prodotto
     {
-        public int Id { get; set; }
+        public int ProdottoId { get; set; }
         public string Nome { get; set; }
         public decimal Prezzo { get; set; }
         public string Descrizione { get; set; }
